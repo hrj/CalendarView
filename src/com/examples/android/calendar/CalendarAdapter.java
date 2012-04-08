@@ -65,20 +65,26 @@ public class CalendarAdapter extends BaseAdapter {
 	// create a new view for each item referenced by the Adapter
 	public View getView(final int position, final View convertView, final ViewGroup parent) {
 		View v = convertView;
-		TextView dayView;
-		if (convertView == null) { // if it's not recycled, initialize some
-															 // attributes
-			final LayoutInflater vi = (LayoutInflater) mContext
-			    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+		if (convertView == null) { // if it's not recycled, initialize some attributes
+			final LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.calendar_item, null);
-
 		}
-		dayView = (TextView) v.findViewById(R.id.date);
+		
+		final TextView dayView = (TextView) v.findViewById(R.id.date);
+		final ImageView iw = (ImageView) v.findViewById(R.id.date_icon);
+
+		// create date string for comparison
+		final String dateStr = days[position];
+		
+		dayView.setText(dateStr);
 
 		// disable empty days from the beginning
-		if (days[position].equals("")) {
+		if (dateStr == null) {
 			dayView.setClickable(false);
 			dayView.setFocusable(false);
+			v.setBackgroundResource(0);
+			iw.setVisibility(View.INVISIBLE);
 		} else {
 			// mark current day as focused
 			if (month.get(Calendar.YEAR) == selectedDate.get(Calendar.YEAR)
@@ -89,27 +95,15 @@ public class CalendarAdapter extends BaseAdapter {
 			} else {
 				v.setBackgroundResource(R.drawable.list_item_background);
 			}
-		}
-		dayView.setText(days[position]);
-
-		// create date string for comparison
-		String date = days[position];
-
-		if (date.length() == 1) {
-			date = "0" + date;
-		}
-		String monthStr = "" + (month.get(Calendar.MONTH) + 1);
-		if (monthStr.length() == 1) {
-			monthStr = "0" + monthStr;
+			
+			// show icon if date is not empty and it exists in the items array
+			if (items != null && items.contains(dateStr)) {
+				iw.setVisibility(View.VISIBLE);
+			} else {
+				iw.setVisibility(View.INVISIBLE);
+			}
 		}
 
-		// show icon if date is not empty and it exists in the items array
-		final ImageView iw = (ImageView) v.findViewById(R.id.date_icon);
-		if (date.length() > 0 && items != null && items.contains(date)) {
-			iw.setVisibility(View.VISIBLE);
-		} else {
-			iw.setVisibility(View.INVISIBLE);
-		}
 		return v;
 	}
 
@@ -132,11 +126,11 @@ public class CalendarAdapter extends BaseAdapter {
 		// populate empty days before first real day
 		if (firstDay > 1) {
 			for (j = 0; j < firstDay - FIRST_DAY_OF_WEEK; j++) {
-				days[j] = "";
+				// days[j] = "";
 			}
 		} else {
 			for (j = 0; j < FIRST_DAY_OF_WEEK * 6; j++) {
-				days[j] = "";
+				// days[j] = "";
 			}
 			j = FIRST_DAY_OF_WEEK * 6 + 1; // sunday => 1, monday => 7
 		}
