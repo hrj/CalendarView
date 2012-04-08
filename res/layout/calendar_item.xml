@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="60px"
-    android:padding="8dp"
-    android:orientation="vertical"
-    
-    android:background="@drawable/list_item_background"    
-    >
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-			android:id="@+id/date"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    
-		    android:textSize="14sp"
-		    android:textStyle="bold"
-		    android:textColor="@color/text_color"
-		    >
-</TextView>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-		android:id="@+id/date_icon"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-		android:src="@drawable/icon" 
-		android:visibility="invisible"/>
+<LinearLayout xmlns:_="http://schemas.android.com/apk/res/android"
+    _:layout_width="match_parent"
+    _:layout_height="60px"
+    _:background="@drawable/list_item_background"
+    _:orientation="vertical"
+    _:padding="8dp" >
+
+    <TextView
+        _:id="@+id/date"
+        _:layout_width="wrap_content"
+        _:layout_height="wrap_content"
+        _:textColor="@color/calendar_text_color"
+        _:textSize="14sp"
+        _:textStyle="bold" >
+    </TextView>
+
+    <ImageView
+        _:id="@+id/date_icon"
+        _:layout_width="match_parent"
+        _:layout_height="match_parent"
+        _:src="@drawable/icon"
+        _:visibility="invisible" />
+
 </LinearLayout>

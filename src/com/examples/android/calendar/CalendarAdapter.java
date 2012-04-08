@@ -89,8 +89,7 @@ public class CalendarAdapter extends BaseAdapter {
 			// mark current day as focused
 			if (month.get(Calendar.YEAR) == selectedDate.get(Calendar.YEAR)
 			    && month.get(Calendar.MONTH) == selectedDate.get(Calendar.MONTH)
-			    && days[position]
-			        .equals("" + selectedDate.get(Calendar.DAY_OF_MONTH))) {
+			    && days[position].equals("" + selectedDate.get(Calendar.DAY_OF_MONTH))) {
 				v.setBackgroundResource(R.drawable.item_background_focused);
 			} else {
 				v.setBackgroundResource(R.drawable.list_item_background);
@@ -121,19 +120,18 @@ public class CalendarAdapter extends BaseAdapter {
 			days = new String[lastDay + firstDay - (FIRST_DAY_OF_WEEK + 1)];
 		}
 
-		int j = FIRST_DAY_OF_WEEK;
+		final int j = firstDay > 1 ?
+				firstDay - FIRST_DAY_OF_WEEK
+				: FIRST_DAY_OF_WEEK * 6 + 1; // sunday => 1, monday => 7
 
+		/*
 		// populate empty days before first real day
 		if (firstDay > 1) {
-			for (j = 0; j < firstDay - FIRST_DAY_OF_WEEK; j++) {
-				// days[j] = "";
-			}
+			j = firstDay - FIRST_DAY_OF_WEEK;
 		} else {
-			for (j = 0; j < FIRST_DAY_OF_WEEK * 6; j++) {
-				// days[j] = "";
-			}
 			j = FIRST_DAY_OF_WEEK * 6 + 1; // sunday => 1, monday => 7
 		}
+		*/
 
 		// populate days
 		for (int i = j - 1, dayNumber=1; i < days.length; i++, dayNumber++) {

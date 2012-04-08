@@ -18,8 +18,6 @@ package com.examples.android.calendar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Random;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -113,12 +111,10 @@ public class CalendarView extends Activity {
 	}
 
 	public void refreshCalendar() {
-		final TextView title = (TextView) findViewById(R.id.title);
-
 		adapter.refreshDays();
-		// adapter.notifyDataSetChanged();
 		handler.post(calendarUpdater); // generate some random calendar items
 
+		final TextView title = (TextView) findViewById(R.id.title);
 		title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
 	}
 
