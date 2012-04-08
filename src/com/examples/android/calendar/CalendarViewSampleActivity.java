@@ -45,7 +45,10 @@ public class CalendarViewSampleActivity extends Activity {
 				DatePicker dp = (DatePicker)findViewById(R.id.datePicker1);
 				Intent intent = new Intent(v.getContext(),CalendarView.class);
 				
-	    		intent.putExtra("date", dp.getYear()+"-"+dp.getMonth()+"-"+dp.getDayOfMonth());
+	    		// intent.putExtra("date", dp.getYear()+"-"+dp.getMonth()+"-"+dp.getDayOfMonth());
+	    		intent.putExtra("date-year", dp.getYear());
+	    		intent.putExtra("date-month", dp.getMonth());
+	    		intent.putExtra("date-day", dp.getDayOfMonth());
 	    		startActivityForResult(intent, PICK_DATE_REQUEST);				
 			}
 		});
@@ -56,10 +59,16 @@ public class CalendarViewSampleActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == PICK_DATE_REQUEST) {
             if (resultCode == RESULT_OK) {
-            	Toast.makeText(getApplicationContext(), data.getStringExtra("date"), Toast.LENGTH_SHORT).show();
-            	String[] dateArr = data.getStringExtra("date").split("-");
+            	// Toast.makeText(getApplicationContext(), data.getStringExtra("date"), Toast.LENGTH_SHORT).show();
+            	// String[] dateArr = data.getStringExtra("date").split("-");
             	DatePicker dp = (DatePicker)findViewById(R.id.datePicker1);
-            	dp.updateDate(Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[2]));
+            	
+							final int yearIn = data.getIntExtra("date-year", 0);
+							final int monthIn = data.getIntExtra("date-month", 0);
+							final int dayIn = data.getIntExtra("date-day", 0);
+							
+            	Toast.makeText(getApplicationContext(), String.format("%d %d %d", yearIn, monthIn, dayIn), Toast.LENGTH_SHORT).show();
+            	dp.updateDate(yearIn, monthIn, dayIn);
             }
 		}
 	}
